@@ -52,7 +52,7 @@ public class MAIIN extends JFrame {
 	 */
 	public MAIIN() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 579, 433);
+		setBounds(100, 100, 475, 328);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -124,11 +124,11 @@ public class MAIIN extends JFrame {
 						panel.add(lblMES);
 						
 						JLabel lblAÑO = new JLabel("Año:");
-						lblAÑO.setBounds(159, 132, 46, 14);
+						lblAÑO.setBounds(159, 129, 46, 14);
 						panel.add(lblAÑO);
 						
 								comboAño = new JComboBox();
-								comboAño.setBounds(218, 128, 70, 22);
+								comboAño.setBounds(202, 125, 70, 22);
 								panel.add(comboAño);
 								comboAño.setSelectedItem(String.valueOf(hoy.getYear()));
 								
