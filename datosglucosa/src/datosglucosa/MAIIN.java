@@ -21,7 +21,9 @@ public class MAIIN extends JFrame {
 	List<registro> registros=new ArrayList<>();// creo mi arraylist
 	private JTextField textField;
 	private JTextField textField_1;
-	
+	private JComboBox comboDia;
+	private JComboBox comboMes;
+	private JComboBox comboAño;
 	/**
 	 * Launch the application.
 	 */
@@ -62,7 +64,38 @@ public class MAIIN extends JFrame {
 		lblGLUCOSA.setBounds(127, 111, 92, 14);
 		contentPane.add(lblGLUCOSA);
 		
+		comboDia = new JComboBox();
+		comboDia.setBounds(285, 136, 60, 22);
+		contentPane.add(comboDia);
+
+		comboMes = new JComboBox();
+		comboMes.setBounds(285, 164, 60, 22);
+		contentPane.add(comboMes);
+
+		comboAño = new JComboBox();
+		comboAño.setBounds(285, 197, 70, 22);
+		contentPane.add(comboAño);
 		
+		//dia
+		for(int i=1;i<=31;i++){
+		    comboDia.addItem(String.valueOf(i));
+		}
+
+		//mes
+		for(int i=1;i<=12;i++){
+		    comboMes.addItem(String.valueOf(i));
+		} 
+
+		//año
+		for(int i=2020;i<=2030;i++){
+		    comboAño.addItem(String.valueOf(i));
+		}
+		
+		java.time.LocalDate hoy = java.time.LocalDate.now();
+
+		comboDia.setSelectedItem(String.valueOf(hoy.getDayOfMonth()));
+		comboMes.setSelectedItem(String.valueOf(hoy.getMonthValue()));
+		comboAño.setSelectedItem(String.valueOf(hoy.getYear()));
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(229, 108, 86, 20);
@@ -76,9 +109,13 @@ public class MAIIN extends JFrame {
 				String nombre = textField.getText();
 				double glucosa = Double.parseDouble(textField_1.getText());
 
-			
+				int dia = Integer.parseInt(comboDia.getSelectedItem().toString());
+				int mes = Integer.parseInt(comboMes.getSelectedItem().toString());
+				int año = Integer.parseInt(comboAño.getSelectedItem().toString());
 
-			registro nuevo = new registro(nombre, glucosa);
+				java.time.LocalDate fecha = java.time.LocalDate.of(año, mes, dia);
+
+			registro nuevo = new registro(nombre, glucosa, fecha);
 			registros.add(nuevo);
 				System.out.println("Guardado");
 			}
@@ -86,7 +123,17 @@ public class MAIIN extends JFrame {
 		btnGUARDAR.setBounds(167, 227, 89, 23);
 		contentPane.add(btnGUARDAR);
 		
+		JLabel lblDIA = new JLabel("Día:");
+		lblDIA.setBounds(127, 140, 129, 14);
+		contentPane.add(lblDIA);
 		
+		JLabel lblMES = new JLabel("Mes:");
+		lblMES.setBounds(127, 168, 148, 14);
+		contentPane.add(lblMES);
+		
+		JLabel lblAÑO = new JLabel("Año:");
+		lblAÑO.setBounds(127, 187, 148, 14);
+		contentPane.add(lblAÑO);
 
 	}
 }
