@@ -5,13 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
@@ -22,6 +25,7 @@ public class MAIIN extends JFrame {
 	private JPanel contentPane;
 
 	List<registro> registros=new ArrayList<>();// creo mi arraylist
+	private DefaultListModel<String> listModel = new DefaultListModel<>();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JComboBox comboDia;
@@ -60,23 +64,7 @@ public class MAIIN extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		//dia
-		for(int i=1;i<=31;i++){
-		    comboDia.addItem(String.valueOf(i));
-		}
-
-		//mes
-		for(int i=1;i<=12;i++){
-		    comboMes.addItem(String.valueOf(i));
-		} 
-
-		//año
-		for(int i=2020;i<=2030;i++){
-		    comboAño.addItem(String.valueOf(i));
-		}
-		
-		java.time.LocalDate hoy = java.time.LocalDate.now();
+				
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 37, 426, 226);
@@ -115,46 +103,67 @@ public class MAIIN extends JFrame {
 		comboDia.setBounds(212, 62, 60, 22);
 		panel.add(comboDia);
 		
-				comboDia.setSelectedItem(String.valueOf(hoy.getDayOfMonth()));
+		
 				
-						comboMes = new JComboBox();
-						comboMes.setBounds(212, 93, 60, 22);
-						panel.add(comboMes);
-						comboMes.setSelectedItem(String.valueOf(hoy.getMonthValue()));
+		comboMes = new JComboBox();
+		comboMes.setBounds(212, 93, 60, 22);
+		panel.add(comboMes);
+		
 						
-						JLabel lblMES = new JLabel("Mes:");
-						lblMES.setBounds(157, 97, 36, 14);
-						panel.add(lblMES);
+		JLabel lblMES = new JLabel("Mes:");
+		lblMES.setBounds(157, 97, 36, 14);
+		panel.add(lblMES);
 						
-						JLabel lblAÑO = new JLabel("Año:");
-						lblAÑO.setBounds(159, 129, 46, 14);
-						panel.add(lblAÑO);
+		JLabel lblAÑO = new JLabel("Año:");
+		lblAÑO.setBounds(159, 129, 46, 14);
+		panel.add(lblAÑO);
 						
-								comboAño = new JComboBox();
-								comboAño.setBounds(202, 125, 70, 22);
-								panel.add(comboAño);
-								comboAño.setSelectedItem(String.valueOf(hoy.getYear()));
-								
-								JButton btnGUARDAR = new JButton("Guardar");
-								btnGUARDAR.setBounds(142, 156, 89, 23);
-								panel.add(btnGUARDAR);
-								btnGUARDAR.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
+		comboAño = new JComboBox();
+		comboAño.setBounds(202, 125, 70, 22);
+		panel.add(comboAño);
+		
+		
+		//dia
+		for(int i=1;i<=31;i++){
+		    comboDia.addItem(String.valueOf(i));
+		}
 
-										String nombre = textField.getText();
-										double glucosa = Double.parseDouble(textField_1.getText());
+		//mes
+		for(int i=1;i<=12;i++){
+		    comboMes.addItem(String.valueOf(i));
+			} 
 
-										int dia = Integer.parseInt(comboDia.getSelectedItem().toString());
-										int mes = Integer.parseInt(comboMes.getSelectedItem().toString());
-										int año = Integer.parseInt(comboAño.getSelectedItem().toString());
+		//año
+		for(int i=2020;i<=2030;i++){
+		    comboAño.addItem(String.valueOf(i));
+		}
+				
+		java.time.LocalDate hoy = java.time.LocalDate.now();
+		
+		comboDia.setSelectedItem(String.valueOf(hoy.getDayOfMonth()));
+		comboMes.setSelectedItem(String.valueOf(hoy.getMonthValue()));
+		comboAño.setSelectedItem(String.valueOf(hoy.getYear()));
+		
+		JButton btnGUARDAR = new JButton("Guardar");
+		btnGUARDAR.setBounds(142, 156, 89, 23);
+		panel.add(btnGUARDAR);
+		btnGUARDAR.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
 
-										java.time.LocalDate fecha = java.time.LocalDate.of(año, mes, dia);
+		String nombre = textField.getText();
+		double glucosa = Double.parseDouble(textField_1.getText());
 
-									registro nuevo = new registro(nombre, glucosa, fecha);
-									registros.add(nuevo);
-										System.out.println("Guardado");
-									}
-								});
+		int dia = Integer.parseInt(comboDia.getSelectedItem().toString());
+		int mes = Integer.parseInt(comboMes.getSelectedItem().toString());
+		int año = Integer.parseInt(comboAño.getSelectedItem().toString());
+
+		java.time.LocalDate fecha = java.time.LocalDate.of(año, mes, dia);
+
+		registro nuevo = new registro(nombre, glucosa, fecha);
+		registros.add(nuevo);
+		System.out.println("Guardado");
+		}
+		});
 		
 		toolBar_1 = new JToolBar();
 		tabbedPane.addTab("Historial", null, toolBar_1, null);
@@ -163,11 +172,29 @@ public class MAIIN extends JFrame {
 		toolBar_1.add(panel_1);
 		panel_1.setLayout(null);
 		
-		list = new JList();
+		JList<String> list = new JList<>(listModel);
 		list.setBounds(10, 10, 388, 140);
 		panel_1.add(list);
 		
 		btnMostrarhistorial = new JButton("Mostrar historial");
+		btnMostrarhistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listModel.clear();
+				registros.sort(Comparator.comparing(registro::getNombre));
+				
+				String persona = "";
+				
+				for(registro x: registros) {
+					if(!x.getNombre().equals(persona)) {
+						persona = x.getNombre();
+						listModel.addElement(persona);
+					}
+					listModel.addElement("Fecha:"+String.valueOf(x.getFecha()));
+					listModel.addElement("Toma glucosa:"+String.valueOf(x.getGlucosa()));				
+				}
+				
+			}
+		});
 		btnMostrarhistorial.setBounds(122, 160, 152, 20);
 		panel_1.add(btnMostrarhistorial);
 
