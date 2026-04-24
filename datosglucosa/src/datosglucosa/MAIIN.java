@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.JList;
 public class MAIIN extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -31,6 +32,8 @@ public class MAIIN extends JFrame {
 	private JToolBar toolBar_1;
 	private JPanel panel;
 	private JPanel panel_1;
+	private JList list;
+	private JButton btnMostrarhistorial;
 	/**
 	 * Launch the application.
 	 */
@@ -159,6 +162,14 @@ public class MAIIN extends JFrame {
 		panel_1 = new JPanel();
 		toolBar_1.add(panel_1);
 		panel_1.setLayout(null);
+		
+		list = new JList();
+		list.setBounds(10, 10, 388, 140);
+		panel_1.add(list);
+		
+		btnMostrarhistorial = new JButton("Mostrar historial");
+		btnMostrarhistorial.setBounds(122, 160, 152, 20);
+		panel_1.add(btnMostrarhistorial);
 
 	}
 }
