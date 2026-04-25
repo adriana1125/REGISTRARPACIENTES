@@ -150,13 +150,7 @@ public class MAIIN extends JFrame {
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			String buscaNom =txtnombre.getText();
-			textArea.setText("");
-			for(registro r: registros) {
-				if(r.getNombre().equals(buscaNom)) {
-					textArea.append(r.toString() + "\n");
-				}
-			}
+			
 			}
 		});
 		btnNewButton.setBounds(570, 73, 89, 23);
