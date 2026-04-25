@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextArea;
 public class MAIIN extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -24,9 +25,11 @@ public class MAIIN extends JFrame {
 	private JComboBox comboDia;
 	private JComboBox comboMes;
 	private JComboBox comboAño;
+	private JTextField txtnombre;
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,7 +48,7 @@ public class MAIIN extends JFrame {
 	 */
 	public MAIIN() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 845, 471);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -134,6 +137,31 @@ public class MAIIN extends JFrame {
 		JLabel lblAÑO = new JLabel("Año:");
 		lblAÑO.setBounds(127, 187, 148, 14);
 		contentPane.add(lblAÑO);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(516, 122, 250, 220);
+		contentPane.add(textArea);
+		
+		txtnombre = new JTextField();
+		txtnombre.setBounds(516, 42, 236, 20);
+		contentPane.add(txtnombre);
+		txtnombre.setColumns(10);
+
+		JButton btnNewButton = new JButton("Buscar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			String buscaNom =txtnombre.getText();
+			textArea.setText("");
+			for(registro r: registros) {
+				if(r.getNombre().equals(buscaNom)) {
+					textArea.append(r.toString() + "\n");
+				}
+			}
+			}
+		});
+		btnNewButton.setBounds(570, 73, 89, 23);
+		contentPane.add(btnNewButton);
+		
 
 	}
 }

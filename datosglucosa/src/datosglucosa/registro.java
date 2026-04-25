@@ -14,6 +14,9 @@ public class registro {
 		 
 		
 		}
+		public String toString() {
+			return nombre + " |" + fecha+" | glucosa"+ glucosa+" gm/Ld";
+		}
 
 		public LocalDate getFecha() {
 			return fecha;
